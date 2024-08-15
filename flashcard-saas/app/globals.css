@@ -1,0 +1,24 @@
+
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+/* global.css */
+.flashcard {
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff; /* White background for the card face */
+  border: 2px solid #d1c4e9; /* Light purple border */
+}
+
+.flashcard-front {
+  background-color: #ffffff; /* White background for the front */
+  color: #000000; /* Black text color for the front */
+}
+
+.flashcard-back {
+  background-color: #ffb6c1; /* Light pink background for the back */
+  color: #000000; /* Black text color for the back */
+}
