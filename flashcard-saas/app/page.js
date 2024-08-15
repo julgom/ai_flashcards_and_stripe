@@ -363,7 +363,7 @@ export default function Home() {
         </Typography>
           
           <Typography variant="h5" sx={{ color: '#666666', mb: 4 }}>
-          Turn PDFs into Flashcards in seconds. Unlock the power of efficient memorizing with FlashAIde&apos;s flashcard deck generator, your go-to solution for transforming study sessions into a breeze. Our advanced AI question generator is designed to help you memorize information faster, understand concepts more deeply, and ace your exams with confidence.
+          Turn PDFs into Flashcards in seconds. Unlock the power of efficient memorizing with FlashAIdes flashcard deck generator, your go-to solution for transforming study sessions into a breeze. Our advanced AI question generator is designed to help you memorize information faster, understand concepts more deeply, and ace your exams with confidence.
           </Typography>
           <Button
           //onClick={handleStarted}
