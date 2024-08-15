@@ -298,9 +298,9 @@ export default function Home() {
   const handleSubmit = async () => {
     const checkoutSession = await fetch('/api/checkout_session', {
       method: 'POST',
-      headers: {
+      /*headers: {
         origin: 'https://localhost:3000',
-      },
+      },*/
     });
 
     const checkoutSessionJson = await checkoutSession.json();
