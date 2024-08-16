@@ -323,6 +323,8 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, T
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import CustomAppBar from '../AppBar';
+//import { ThemeProvider } from '../ThemeContext';
+import { useTheme } from '../ThemeContext'; 
 
 export default function Flashcards() {
     const { isLoaded, isSignedIn, user } = useUser();
@@ -334,7 +336,7 @@ export default function Flashcards() {
     const router = useRouter();
     const [openRenameModal, setOpenRenameModal] = useState(false);
     const [newName, setNewName] = useState('');
- 
+    const { isDarkMode } = useTheme();
 
     useEffect(() => {
         async function getFlashcards() {
@@ -482,6 +484,7 @@ export default function Flashcards() {
 
     return (
         <>
+       
         <CustomAppBar 
         backgroundColor="#ffb6c1" // Pastel Pink
         textColor="white"
@@ -491,12 +494,14 @@ export default function Flashcards() {
         <Container 
             maxWidth="100vw"
             sx={{ 
-                backgroundColor: '#EAE5F2',//'#EADFF2',//#E6E6FA',//#fce4ec', // Pastel Pink background
+                //backgroundColor: isDarkMode ? '#1F1F1F' : '#fff',
+                backgroundColor: isDarkMode ? '#333333' : '#EAE5F2',
+                //backgroundColor: '#EAE5F2',//'#EADFF2',//#E6E6FA',//#fce4ec', // Pastel Pink background
                 minHeight: '100vh', 
                 p: 3 
             }}
         >
-            <Typography variant="h4" sx={{ pt: '90px', color: '#333333', textAlign: 'center', textShadow: '1px 1px 2px rgba(255, 255, 255, 0.5)',}}>
+            <Typography variant="h4" sx={{ pt: '90px', color: isDarkMode ? '#EAE5F2' : '#333333', textAlign: 'center', textShadow: '2px 2px 4px rgba(128, 128, 128, 0.5)',}}>
                 Your Library
             </Typography>
             <Grid container spacing={3} sx={{ mt: 0.5 }}>
@@ -509,9 +514,12 @@ export default function Flashcards() {
                             <Card
                                 sx={{
                                     borderRadius: '12px', // Smooth corners
-                                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)',
+                                    boxShadow: isDarkMode ? '0 16px 32px rgba(0, 0, 0, 0.4)':'0 12px 24px rgba(0, 0, 0, 0.3)',
+                                    //boxShadow: isDarkMode ? '0 12px 24px rgba(0, 0, 0, 0.3)':'0 4px 8px rgba(0, 0, 0, 0.5)',
                                     border: `2px solid ${index % 2 === 0 ? 'rgba(209, 196, 233, 0.5)' : 'rgba(255, 182, 193, 0.5)'}`, // Alternating pastel purple/pink border
-                                    backgroundColor: '#ffffff', // White background for the outer box
+                                    //backgroundColor: isDarkMode ? '#1F1F1F' : '#fff',
+                                    backgroundColor: isDarkMode ? '#333333' : '#EAE5F2',
+                                    //backgroundColor: isDarkMode ? '#333333' : '#ffffff', // White background for the outer box
                                     height: 200, // Increased height for each card
                                     position: 'relative',
                                     display: 'flex',
@@ -523,7 +531,7 @@ export default function Flashcards() {
                                     <Typography 
                                         variant="h4" 
                                         sx={{ 
-                                            color: '#333333', 
+                                            color: isDarkMode ? '#ffffff' : '#333333', 
                                             textAlign: 'center',
                                             //marginRight: 20,
                                             //flexGrow: 1
@@ -552,7 +560,7 @@ export default function Flashcards() {
                                         position: 'absolute', 
                                         top: 8, 
                                         right: 8, 
-                                        color: '#333333' 
+                                        color: isDarkMode ? '#ffffff' : '#333333', 
                                     }} 
                                     onClick={(event) => handleMenuClick(event, flashcard.name, cardColor, hoverColor)}
                                 >
@@ -721,6 +729,7 @@ export default function Flashcards() {
             </Dialog>
             
         </Container>
+        
         </>
     );
 }

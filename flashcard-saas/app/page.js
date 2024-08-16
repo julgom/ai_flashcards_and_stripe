@@ -285,15 +285,22 @@ export default function Home() {
 */
 "use client";
 import Head from 'next/head';
+import React, { useState, useEffect } from 'react';
 import { Container, Box, Grid, Typography, Button, Card, CardContent, IconButton, Menu, MenuItem } from '@mui/material';
 import CustomAppBar from './AppBar';
+//import { ThemeProvider } from './ThemeContext'; 
 import getStripe from '@/utils/get-stripe';
 import { useRouter } from 'next/navigation';
 import { SignedIn, SignedOut, useUser } from '@clerk/nextjs';
 
+import { useTheme } from './ThemeContext';
+
 export default function Home() {
   const { isLoaded, isSignedIn, user } = useUser();
   const router = useRouter();
+  const { isDarkMode } = useTheme();
+
+  
 
   const handleSubmit = async () => {
     const checkoutSession = await fetch('/api/checkout_session', {
@@ -333,8 +340,8 @@ export default function Home() {
 
   return (
     <>
-      
-
+     
+     
       <CustomAppBar 
         backgroundColor="#ffb6c1" // Pastel Pink
         textColor="white"
@@ -344,7 +351,9 @@ export default function Home() {
       <Container
         maxWidth="100vw"
         sx={{
-          backgroundColor: '#EAE5F2', // Pastel background
+          
+          backgroundColor: isDarkMode ? '#333333' : '#EAE5F2',
+          //backgroundColor: '#EAE5F2', // Pastel background
           minHeight: '100vh',
         
           p: 3,
@@ -358,11 +367,11 @@ export default function Home() {
         
        
        <Box sx={{textAlign: 'center'}}> 
-       <Typography  sx={{ pt:"90px",color: '#333333', mb: 7, textAlign: 'center', textShadow: '2px 2px 4px rgba(128, 128, 128, 0.7)',  fontSize: '4.25rem', fontWeight: '300', lineHeight: 1.167, letterSpacing: '0' }}>
+       <Typography  sx={{ pt:"90px",color: isDarkMode ? '#EAE5F2' : '#333333', mb: 7, textAlign: 'center', textShadow: '2px 2px 4px rgba(128, 128, 128, 0.7)',  fontSize: '4.25rem', fontWeight: '300', lineHeight: 1.167, letterSpacing: '0' }}>
        {isSignedIn ? `Hi ${user.firstName}! Welcome to FlashAIde.` : 'FlashAIde'}
         </Typography>
           
-          <Typography variant="h5" sx={{ color: '#666666', mb: 4 }}>
+          <Typography variant="h5" sx={{ color: isDarkMode ? '#EAE5F2' : '#666666', mb: 4 }}>
           Transform your notes into flashcards in no time with FlashAIde! This advanced AI flashcard generator is your ultimate tool for turning study sessions into efficient, stress-free experiences. With FlashAIde, you will memorize information faster, grasp concepts more thoroughly, and approach your exams with confidence.
           </Typography>
           <Button
@@ -372,7 +381,7 @@ export default function Home() {
              sx={{
                mt: 2,
                backgroundColor: '#ffb6c1', // Pastel pink background
-               color: '#fff', // White text color
+               color: isDarkMode ? '#333333' : 'white', // White text color
                textTransform: 'capitalize', // Capitalize only the first letter of 'Get Started'
                '&:hover': {
                  backgroundColor: '#e99ca9', // Slightly darker pastel pink on hover
@@ -381,7 +390,7 @@ export default function Home() {
                padding: '16px 32px', // Increase padding for a bigger button
                fontSize: '1.25rem', // Larger text size
                fontWeight: 'bold', // Bold text for emphasis
-               textShadow: '0.5px 0.5px 1px rgba(0, 0, 0, 0.3)',
+               textShadow: isDarkMode ? '1px 1px 2px rgba(255, 255, 255, 0.5)' : '0.5px 0.5px 1px rgba(0, 0, 0, 0.3)',
              }} 
           >
 
@@ -411,12 +420,12 @@ export default function Home() {
         }}
       >
         <Box>
-        <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold', color: '#333', fontSize: '1.5rem' }}>
+        <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold', color: isDarkMode ? '#EAE5F2' : '#333', fontSize: '1.5rem' }}>
         Effortless Flashcard Creation
         </Typography>
        
         <Box sx={{ textAlign: 'center', mb: 3 }}>
-        <Typography variant="body1" gutterBottom sx={{ color: '#444', mb: 2, fontSize: '1.2rem' }}>
+        <Typography variant="body1" gutterBottom sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 2, fontSize: '1.2rem' }}>
         Quickly transform any text or PDF into study-ready flashcards. Upload your study materials, and our AI instantly generates cards for you.
         </Typography>
         
@@ -443,12 +452,12 @@ export default function Home() {
       >
         <Box>
         
-        <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold', color: '#333', fontSize: '1.5rem' }}>
+        <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold', color: isDarkMode ? '#EAE5F2' : '#333', fontSize: '1.5rem' }}>
         Smart Flashcards
         </Typography>
        
         <Box sx={{ textAlign: 'center', mb: 3 }}>
-        <Typography variant="body1" gutterBottom sx={{ color: '#444', mb: 2, fontSize: '1.2rem' }}>
+        <Typography variant="body1" gutterBottom sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 2, fontSize: '1.2rem' }}>
         Transform your study materials into effective learning tools with our AI-powered system, which automatically condenses your content into precise, easy-to-digest flashcards for optimal studying.
         </Typography>
          
@@ -476,12 +485,12 @@ export default function Home() {
       >
         <Box>
         
-        <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold', color: '#333', fontSize: '1.5rem' }}>
+        <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold', color:  isDarkMode ? '#EAE5F2' : '#333', fontSize: '1.5rem' }}>
         Study in Any Language
         </Typography>
        
         <Box sx={{ textAlign: 'center', mb: 3 }}>
-        <Typography variant="body1" gutterBottom sx={{ color: '#444', mb: 2, fontSize: '1.2rem' }}>
+        <Typography variant="body1" gutterBottom sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 2, fontSize: '1.2rem' }}>
         Enhance your learning experience by creating flashcards in any language. Our AI automatically detects and adapts to the content you provide, making study material more accessible.
         </Typography>
          
@@ -494,7 +503,7 @@ export default function Home() {
 </Box>
       
       <Box sx={{ textAlign: 'center' }}>
-      <Typography  sx={{ color: '#333333', textAlign: 'center', textShadow: '2px 2px 4px rgba(128, 128, 128, 0.7)', fontSize: '3.45rem', fontWeight: '300', lineHeight: 1.2, letterSpacing: '0'}}>
+      <Typography  sx={{ color: isDarkMode ? '#EAE5F2' : '#333333', textAlign: 'center', textShadow: '2px 2px 4px rgba(128, 128, 128, 0.7)', fontSize: '3.45rem', fontWeight: '300', lineHeight: 1.2, letterSpacing: '0'}}>
            Subscription
       </Typography>
 
@@ -505,9 +514,9 @@ export default function Home() {
             sx={{
               p: 3,
               border: "1px solid",
-              borderColor: "grey.300",
+              borderColor: isDarkMode ? '#444444': "grey.300",
               borderRadius: 2,
-              backgroundColor: '#EAE5F2', // Same as page background
+              backgroundColor: isDarkMode ? '#333333' : '#EAE5F2', // Same as page background
               boxShadow: '0 12px 24px rgba(0, 0, 0, 0.3)', // More prominent shadow
               textAlign: 'center',
               display: 'flex',
@@ -519,35 +528,35 @@ export default function Home() {
             }}
           >
             <Box>
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold', color: '#222', fontSize: '1.75rem', }}>
+        <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold', color: isDarkMode ? '#EAE5F2' : '#222', fontSize: '1.75rem', }}>
           Basic
         </Typography>
-        <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold', color: '#333', fontSize: '1.5rem' }}>
+        <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold', color: isDarkMode ? '#EAE5F2' : '#333', fontSize: '1.5rem' }}>
           $5 / month
         </Typography>
-        <Typography variant="h6" gutterBottom sx={{ color: '#444', mb: 2, fontSize: '1.2rem' }}>
+        <Typography variant="h6" gutterBottom sx={{ color:  isDarkMode ? '#EAE5F2' : '#444', mb: 2, fontSize: '1.2rem' }}>
           Access to basic flashcard features and limited storage.
         </Typography>
         <Box sx={{ textAlign: 'center', mb: 3 }}>
-          <Typography variant="body1" sx={{ color: '#222', mb: 2, fontSize: '1rem', fontWeight: 'bold' }}>
+          <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#222', mb: 2, fontSize: '1rem', fontWeight: 'bold' }}>
             <strong>Features:</strong>
           </Typography>
-          <Typography variant="body1" sx={{ color: '#444', mb: 1.5, fontSize: '1rem' }}>
+          <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 1.5, fontSize: '1rem' }}>
             - Unlimited non-AI Flashcards
           </Typography>
-          <Typography variant="body1" sx={{ color: '#444', mb: 1.5, fontSize: '1rem' }}>
+          <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 1.5, fontSize: '1rem' }}>
             - 5 pages per document
           </Typography>
-          <Typography variant="body1" sx={{ color: '#444', mb: 1.5, fontSize: '1rem' }}>
+          <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 1.5, fontSize: '1rem' }}>
             - 20 exam mode answers
           </Typography>
-          <Typography variant="body1" sx={{ color: '#444', mb: 1.5, fontSize: '1rem' }}>
+          <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 1.5, fontSize: '1rem' }}>
             - 20,000 characters per text upload
           </Typography>
-          <Typography variant="body1" sx={{ color: '#444', mb: 1.5, fontSize: '1rem' }}>
+          <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 1.5, fontSize: '1rem' }}>
             - No exporting
           </Typography>
-          <Typography variant="body1" sx={{ color: '#444', fontSize: '1rem' }}>
+          <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', fontSize: '1rem' }}>
             - Limited new features
           </Typography>
         </Box>
@@ -560,13 +569,13 @@ export default function Home() {
                             mt: -1,
                             //mb: 1,
                             backgroundColor: '#ffb6c1', // Pastel pink background
-                            color: '#fff', // Black text color
+                            color: isDarkMode ? '#333333' : 'white', // Black text color
                             textTransform: 'capitalize', // Capitalize only the first letter of 'Save'
                             '&:hover': {
                                 backgroundColor: '#e99ca9', // Slightly darker pastel pink on hover
                             },
                             borderRadius: '8px', // Rounded corners for the button
-                            textShadow:  '0.5px 0.5px 1px rgba(0, 0, 0, 0.3)',
+                            textShadow: isDarkMode ? '1px 1px 2px rgba(255, 255, 255, 0.5)' : '0.5px 0.5px 1px rgba(0, 0, 0, 0.3)',
                         }}
                     >
                         Choose Basic
@@ -580,10 +589,11 @@ export default function Home() {
             sx={{
               p: 3,
               border: "1px solid",
-              borderColor: "grey.300",
+              borderColor: isDarkMode ? '#444444': "grey.300",
               borderRadius: 2,
-              backgroundColor: '#EAE5F2', // Same as page background
-              boxShadow: '0 12px 24px rgba(0, 0, 0, 0.3)', // More prominent shadow
+              backgroundColor: isDarkMode ? '#333333' : '#EAE5F2', // Same as page background
+              boxShadow: isDarkMode ? '0 16px 32px rgba(0, 0, 0, 0.4)':'0 12px 24px rgba(0, 0, 0, 0.3)',
+              //boxShadow: '0 12px 24px rgba(0, 0, 0, 0.3)', // More prominent shadow
               textAlign: 'center',
               display: 'flex',
               flexDirection: 'column',
@@ -594,35 +604,35 @@ export default function Home() {
             }}
           >
             <Box>
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold', color: '#222', fontSize: '1.75rem', }}>
+        <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold', color: isDarkMode ? '#EAE5F2' : '#222', fontSize: '1.75rem', }}>
           Pro
         </Typography>
-        <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold', color: '#333', fontSize: '1.5rem' }}>
+        <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold', color: isDarkMode ? '#EAE5F2' : '#333', fontSize: '1.5rem' }}>
           $10 / month
         </Typography>
-        <Typography variant="h6" gutterBottom sx={{ color: '#444', mb: 2, fontSize: '1.2rem' }}>
+        <Typography variant="h6" gutterBottom sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 2, fontSize: '1.2rem' }}>
           Unlimited flashcards and storage with priority support.
         </Typography>
         <Box sx={{ textAlign: 'center', mb: 3 }}>
-          <Typography variant="body1" sx={{ color: '#222', mb: 2, fontSize: '1rem', fontWeight: 'bold' }}>
+          <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#222', mb: 2, fontSize: '1rem', fontWeight: 'bold' }}>
             <strong>Features:</strong>
           </Typography>
-          <Typography variant="body1" sx={{ color: '#444', mb: 1.5, fontSize: '1rem' }}>
+          <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 1.5, fontSize: '1rem' }}>
             - Unlimited AI Flashcards
           </Typography>
-          <Typography variant="body1" sx={{ color: '#444', mb: 1.5, fontSize: '1rem' }}>
+          <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 1.5, fontSize: '1rem' }}>
             - 100 pages per document
           </Typography>
-          <Typography variant="body1" sx={{ color: '#444', mb: 1.5, fontSize: '1rem' }}>
+          <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 1.5, fontSize: '1rem' }}>
             - Unlimited exam mode answers
           </Typography>
-          <Typography variant="body1" sx={{ color: '#444', mb: 1.5, fontSize: '1rem' }}>
+          <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 1.5, fontSize: '1rem' }}>
             - 60,000 characters per text upload
           </Typography>
-          <Typography variant="body1" sx={{ color: '#444', mb: 1.5, fontSize: '1rem' }}>
+          <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 1.5, fontSize: '1rem' }}>
             - Export to Anki, PDF, and more
           </Typography>
-          <Typography variant="body1" sx={{ color: '#444', fontSize: '1rem' }}>
+          <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', fontSize: '1rem' }}>
             - New features soon
           </Typography>
         </Box>
@@ -635,13 +645,13 @@ export default function Home() {
                             mt: -1,
                             //mb: 1,
                             backgroundColor: '#ffb6c1', // Pastel pink background
-                            color: '#fff', // Black text color
+                            color: isDarkMode ? '#333333' : 'white', // Black text color
                             textTransform: 'capitalize', // Capitalize only the first letter of 'Save'
                             '&:hover': {
                                 backgroundColor: '#e99ca9', // Slightly darker pastel pink on hover
                             },
                             borderRadius: '8px', // Rounded corners for the button
-                            textShadow: '0.5px 0.5px 1px rgba(0, 0, 0, 0.3)' ,
+                            textShadow: isDarkMode ? '1px 1px 2px rgba(255, 255, 255, 0.5)' : '0.5px 0.5px 1px rgba(0, 0, 0, 0.3)',
                         }}
                     >
                         Choose Pro
@@ -651,7 +661,8 @@ export default function Home() {
       </Grid>
       </Box>
     </Container>
-      
+   
     </>
+    
   );
 }

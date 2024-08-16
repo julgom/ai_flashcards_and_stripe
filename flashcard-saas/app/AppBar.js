@@ -262,23 +262,46 @@ const CustomAppBar = ({ backgroundColor, textColor, hoverColor }) => {
 
 export default CustomAppBar;
 */
-import React from 'react';
+"use client"
+import React, {useState, useEffect} from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import HomeIcon from '@mui/icons-material/Home';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks'; // Updated icon for flashcards
 import AddCircleIcon from '@mui/icons-material/AddCircle'; // New icon for generating flashcards
 import { useRouter } from 'next/navigation';
+import LightMode from '@mui/icons-material/LightMode'; 
+import DarkMode from '@mui/icons-material/DarkMode'; 
+import { useTheme } from './ThemeContext'; // Import the useTheme hook
+import { ThemeProvider } from './ThemeContext';
 
 const CustomAppBar = ({ backgroundColor, textColor, hoverColor }) => {
+  //const [isDarkMode, setIsDarkMode] = useState(false);
+  const { isDarkMode, toggleTheme } = useTheme(); // Use the context
   const router = useRouter();
-  const { pathname } = router;
+  
 
   const handleNavigation = (path) => {
     router.push(path);
   };
 
+  
+
+  if (textColor == 'white' && isDarkMode) {
+    textColor = '#333333'
+  } else if (textColor == '#333333' && isDarkMode) {
+    textColor = 'white'
+  }
+  if (hoverColor == '#f5f5f5' && isDarkMode) {
+    hoverColor = '#141414'
+  } else if (hoverColor == '#141414' && isDarkMode) {
+    hoverColor = '#f5f5f5'
+  }
+
+  
+
   return (
+    
     <AppBar position="fixed" sx={{ backgroundColor, height: '90px' }}>
       <Toolbar
         sx={{
@@ -344,6 +367,20 @@ const CustomAppBar = ({ backgroundColor, textColor, hoverColor }) => {
           >
             <LibraryBooksIcon /> 
           </IconButton>
+          <IconButton
+            color="inherit"
+            sx={{
+              color: textColor,
+              '&:hover': { color: hoverColor },
+              mr: 3,
+              boxShadow: textColor === 'white'
+                ? '0px 1px 2px rgba(0, 0, 0, 0.3)' // Subtle grey shadow for white icons
+                : '0px 2px 4px rgba(255, 255, 255, 0.5)', // Subtle white shadow for grey icons
+            }}
+            onClick={toggleTheme}
+          >
+            {isDarkMode ? <DarkMode /> : <LightMode />}
+          </IconButton>
         </SignedIn>
 
         <SignedOut>
@@ -384,6 +421,8 @@ const CustomAppBar = ({ backgroundColor, textColor, hoverColor }) => {
         </SignedIn>
       </Toolbar>
     </AppBar>
+    
+    
   );
 };
 

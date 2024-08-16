@@ -51,11 +51,15 @@ export default function SignUpPage() {
 import {Container, Box} from '@mui/material'
 import CustomAppBar from '../../AppBar';
 import { SignIn } from '@clerk/nextjs'
+//import { ThemeProvider } from '../../ThemeContext';
+import { useTheme } from '../ThemeContext'; 
 
 
 export default function SignUpPage() {
+    const { isDarkMode } = useTheme();
     return (
         <>
+       
         <CustomAppBar 
           backgroundColor="#d1c4e9" // Pastel Purple
           textColor="#333333"
@@ -83,6 +87,7 @@ export default function SignUpPage() {
         </Box>
 
     </Container>
+   
     </>
 
     )

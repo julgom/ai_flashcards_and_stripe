@@ -1,7 +1,12 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-
+import { ThemeProvider } from './ThemeContext'; // Import the ThemeProvider
+import CustomAppBar from './AppBar'; // Import the CustomAppBar component if it's used here
+import FlashcardPage from './flashcard/page'; // Import other pages/components if needed
+import GeneratePage from './generate/page'; // Import other pages/components if needed
+import FlashcardsPage from './flashcards/page';
+import HomePage from './page.js';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -11,10 +16,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+    <ThemeProvider>
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>{children}</body>
       </html>
     </ClerkProvider>
+    </ThemeProvider>
   );
 }

@@ -486,6 +486,8 @@ import { Container, Box, Typography, Card, CardActionArea, CardContent, IconButt
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 import React from 'react';
 import CustomAppBar from '../AppBar';
+//import { ThemeProvider } from '../ThemeContext';
+import { useTheme } from '../ThemeContext'; 
 
 export default function Flashcard() {
     const { isLoaded, isSignedIn, user } = useUser();
@@ -493,7 +495,7 @@ export default function Flashcard() {
     const [flipped, setFlipped] = useState({});
     const [currentIndex, setCurrentIndex] = useState(0);
     const [flashcardSetName, setFlashcardSetName] = useState('');
-
+    const { isDarkMode } = useTheme();
 
     const searchParams = useSearchParams();
     const search = searchParams.get('id');
@@ -564,7 +566,7 @@ export default function Flashcard() {
             sx={{
                 //pt: '90px',
                 minHeight: '100vh',
-                backgroundColor: '#fce4ec',
+                backgroundColor: isDarkMode ? '#333333' : '#fce4ec',
                 p: 3,
                 display: 'flex',
                 alignItems: 'center',
@@ -573,7 +575,7 @@ export default function Flashcard() {
                 flexDirection: 'column',
             }}
         >
-            <Typography variant="h4" sx={{ pt: '90px', color: '#333333', mb:4, textShadow: '1px 1px 2px rgba(255, 255, 255, 0.5)' }}>
+            <Typography variant="h4" sx={{ pt: '90px',color: isDarkMode ? '#fce4ec' : '#333333', mb:4,  textShadow: '2px 2px 4px rgba(128, 128, 128, 0.5)' }}>
                 {flashcardSetName.charAt(0).toUpperCase() + flashcardSetName.slice(1)}
             </Typography>
 
@@ -612,7 +614,7 @@ export default function Flashcard() {
                             borderRadius: '12px',
                             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)',
                             border: `2px solid ${isEven ? 'rgba(209, 196, 233, 0.5)' : 'rgba(255, 182, 193, 0.5)'}`,
-                            backgroundColor: '#ffffff',
+                            backgroundColor: isDarkMode ? '#1F1F1F' : '#fff',
                             width: '650px',
                             
 
@@ -658,12 +660,12 @@ export default function Flashcard() {
                                         '& > div > div:nth-of-type(1)': {
                                             backgroundColor: isEven ? '#d1c4e9' : '#ffb6c1',
                                             border: `2px solid ${isEven ? 'rgba(209, 196, 233, 0.5)' : 'rgba(255, 182, 193, 0.5)'}`,
-                                            color: isEven ? '#000000' : '#ffffff',
+                                            color: isDarkMode ? (isEven ? '#ffffff' : '#000000') : (isEven ? '#000000' : '#ffffff'), 
                                         },
                                         '& > div > div:nth-of-type(2)': {
                                             backgroundColor: isEven ? '#ffb6c1' : '#d1c4e9',
                                             border: `2px solid ${isEven ? 'rgba(255, 182, 193, 0.5)' : 'rgba(209, 196, 233, 0.5)'}`,
-                                            color: isEven ? '#ffffff' : '#000000',
+                                            color: isDarkMode ? (isEven ? '#000000' : '#ffffff') : (isEven ? '#ffffff' : '#000000'), 
                                             transform: 'rotateX(180deg)',
                                         },
                                     }}
@@ -711,6 +713,7 @@ export default function Flashcard() {
                 </Typography>
             )}
         </Container>
+        
         </>
     );
 }

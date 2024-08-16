@@ -781,6 +781,9 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import { doc, collection, setDoc, getDoc, writeBatch } from 'firebase/firestore';
 import AppBarComponent from '../AppBar';
 import CustomAppBar from '../AppBar';
+import { useTheme } from '../ThemeContext'; // Import the useTheme hook
+//import { ThemeProvider } from '../ThemeContext';
+
 
 export default function Generate() {
     const { isLoaded, isSignedIn, user } = useUser();
@@ -793,7 +796,7 @@ export default function Generate() {
     const [file, setFile] = useState(null);
     const [loading, setLoading] = useState(false); // State for loading
     const router = useRouter();
-
+    const { isDarkMode } = useTheme();
    
 
     const handleSubmit = async () => {
@@ -889,6 +892,7 @@ export default function Generate() {
 
     return (
         <>
+       
       <CustomAppBar 
         backgroundColor="#d1c4e9" // Pastel Purple
         textColor="#333333"
@@ -899,11 +903,11 @@ export default function Generate() {
         maxWidth="100vw" 
         sx={{ 
             
-            backgroundColor: '#fce4ec', 
+            backgroundColor: isDarkMode ? '#333333' : '#fce4ec',
             minHeight: '100vh', 
             p: 3, 
         }}>
-            <Typography variant="h4" sx={{ pt: '90px', color: '#333333', textAlign:"center", textShadow: '1px 1px 2px rgba(255, 255, 255, 0.5)' }}>
+            <Typography variant="h4" sx={{ pt: '90px', color: isDarkMode ? '#fce4ec' : '#333333', textAlign:"center", textShadow: '2px 2px 4px rgba(128, 128, 128, 0.5)' }}>
                     Generate Flashcards
             </Typography>
             <Box
@@ -951,7 +955,7 @@ export default function Generate() {
                         sx={{
                             width: '50%',
                             zIndex: 2,
-                            color: mode === 'text' ? '#fff' : '#333',
+                            color: isDarkMode ?  (mode === 'text' ? '#333' : '#fff') : (mode === 'text' ? '#fff' : '#333'),
                             textTransform: 'none',
                             fontSize: '16px',
                             height: '50px',
@@ -964,7 +968,7 @@ export default function Generate() {
                         sx={{
                             width: '50%',
                             zIndex: 2,
-                            color: mode === 'document' ? '#fff' : '#333',
+                            color: isDarkMode ?  (mode === 'document' ? '#333' : '#fff') : (mode === 'document' ? '#fff' : '#333'),
                             textTransform: 'none',
                             fontSize: '16px',
                             height: '50px',
@@ -982,6 +986,7 @@ export default function Generate() {
                         border: '1px solid rgba(255, 182, 193, 0.5)',
                         boxShadow: '0 4px 8px rgba(255, 182, 193, 0.5)',
                         borderRadius: '12px',
+                        backgroundColor: isDarkMode ? '#1F1F1F' : '#fff',
                     }}
                 >
                     {mode === 'text' ? (
@@ -997,7 +1002,7 @@ export default function Generate() {
                                 mb: 2,
                                 '& .MuiInputBase-root': {
                                     color: '#000', // Black text color
-                                    backgroundColor: '#fff', // White background
+                                    backgroundColor: isDarkMode ? '#1F1F1F' : '#fff', // White background
                                 },
                                 '& .MuiOutlinedInput-notchedOutline': {
                                     borderColor: '#ffb6c1', // Pastel Pink border color
@@ -1013,7 +1018,7 @@ export default function Generate() {
                                 },
                                 
                                 '& .MuiInputBase-input': {
-                                    color: '#000', // Black text color
+                                    color: isDarkMode ? '#ffb6c1' : '#000', // Black text color
                                 },
                                 '& .MuiOutlinedInput-root': {
                                     '&.Mui-focused fieldset': {
@@ -1066,16 +1071,16 @@ export default function Generate() {
                         sx={{
                             mt: 2,
                             backgroundColor: '#d1c4e9',
-                            color: '#000', // Black text color
+                            color: isDarkMode ?  '#fff' : '#333',
                             textTransform: 'capitalize', // Capitalize only the first letter of 'Submit'
                             '&:hover': {
                                 backgroundColor: '#b9a7d9',
                             },
-                            textShadow:  '1px 1px 2px rgba(255, 255, 255, 0.5)',
+                            textShadow: isDarkMode ? '0.5px 0.5px 1px rgba(0, 0, 0, 0.3)' : '1px 1px 2px rgba(255, 255, 255, 0.5)',
                         }}
                     >
                         {loading ? (
-                            <CircularProgress size={24} sx={{ color: '#fff' }} />
+                            <CircularProgress size={24} sx={{ color: isDarkMode ?  '#fff' : '#333', }} />
                         ) : (
                             'Submit'
                         )}
@@ -1094,7 +1099,7 @@ export default function Generate() {
                         alignItems: 'center', 
                     }}
                 >
-                    <Typography variant="h4" sx={{ color: '#333333' , mb: 3  }}>
+                    <Typography variant="h4" sx={{ color: isDarkMode ? '#fce4ec' : '#333333' , mb: 3  }}>
                         Flashcards Preview
                     </Typography>
                     <Grid container spacing={3}>
@@ -1108,7 +1113,7 @@ export default function Generate() {
                                             borderRadius: '12px', // Smooth corners
                                             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)',
                                             border: `2px solid ${isEven ? 'rgba(209, 196, 233, 0.5)' : 'rgba(255, 182, 193, 0.5)'}`, // Alternating pastel purple/pink blurred border
-                                            backgroundColor: '#ffffff', // White background for the outer box
+                                            backgroundColor: isDarkMode ? '#1F1F1F' : '#fff', // White background for the outer box
                                             cursor: 'pointer',
                                         }}
                                         onClick={() => handleCardClick(index)} // Attach the click handler directly to the Card
@@ -1141,12 +1146,12 @@ export default function Generate() {
                                                         '& > div > div:nth-of-type(1)': {
                                                             backgroundColor: isEven ? '#d1c4e9' : '#ffb6c1', // Pastel purple/pink for the front
                                                             border: `2px solid ${isEven ? 'rgba(209, 196, 233, 0.5)' : 'rgba(255, 182, 193, 0.5)'}`, // Alternating border colors
-                                                            color: isEven ? '#000000' : '#ffffff', // Black text on purple, white text on pink
+                                                            color: isDarkMode ? (isEven ? '#ffffff' : '#000000') : (isEven ? '#000000' : '#ffffff'), // Black text on purple, white text on pink
                                                         },
                                                         '& > div > div:nth-of-type(2)': {
                                                             backgroundColor: isEven ? '#ffb6c1' : '#d1c4e9', // Alternating pastel pink/purple for the back
                                                             border: `2px solid ${isEven ? 'rgba(255, 182, 193, 0.5)' : 'rgba(209, 196, 233, 0.5)'}`, // Alternating border colors
-                                                            color: isEven ? '#ffffff' : '#000000', // White text on pink, black text on purple
+                                                            color: isDarkMode ? (isEven ? '#000000' : '#ffffff') : (isEven ? '#ffffff' : '#000000') , // White text on pink, black text on purple
                                                             transform: 'rotateY(180deg)',
                                                         },
                                                     }}
@@ -1175,18 +1180,18 @@ export default function Generate() {
                    <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
                        <Button
                             variant="contained"
-                            color="primary"
+                            color= "primary"
                             onClick={handleOpen}
                             sx={{
                                 mt: 2,
                                 backgroundColor: '#d1c4e9', // Pastel purple background
-                                color: '#000', // Black text color
+                                color: isDarkMode ?  '#fff' : '#333',
                                 textTransform: 'capitalize', // Capitalize only the first letter of 'Save'
                                 '&:hover': {
                                     backgroundColor: '#b9a7d9', // Slightly darker pastel purple on hover
                                 },
                                 borderRadius: '8px', // Rounded corners for the button
-                                textShadow:  '1px 1px 2px rgba(255, 255, 255, 0.5)',
+                                textShadow: isDarkMode ? '0.5px 0.5px 1px rgba(0, 0, 0, 0.3)' : '1px 1px 2px rgba(255, 255, 255, 0.5)',
                             }}
                         >
                             Save
@@ -1242,7 +1247,7 @@ export default function Generate() {
                          sx={{
                             '& .MuiInputBase-root': {
                                 color: '#000', // Black text color for the input
-                                backgroundColor: '#ffffff', // White background
+                                backgroundColor:  '#fff', // White background
                             },
                             '& .MuiOutlinedInput-notchedOutline': {
                                 borderColor: '#ffb6c1', // Pastel pink border color
@@ -1316,6 +1321,7 @@ export default function Generate() {
                 </DialogActions>
             </Dialog>
         </Container>
+        
         </>
     );
 }
