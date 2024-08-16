@@ -52,11 +52,11 @@ import {Container, Box} from '@mui/material'
 import CustomAppBar from '../../AppBar';
 import { SignIn } from '@clerk/nextjs'
 //import { ThemeProvider } from '../../ThemeContext';
-import { useTheme } from '../ThemeContext'; 
+//import { useTheme } from '../ThemeContext'; 
 
 
 export default function SignUpPage() {
-    const { isDarkMode } = useTheme();
+    //const { isDarkMode } = useTheme();
     return (
         <>
        
