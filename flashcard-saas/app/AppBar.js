@@ -407,6 +407,7 @@ const CustomAppBar = ({ backgroundColor, textColor, hoverColor }) => {
               '&:hover': { color: hoverColor },
               fontSize: '16px',
               fontWeight: 'bold',
+              mr: 3,
               textShadow: textColor === 'white'
                 ? '0.5px 0.5px 1px rgba(0, 0, 0, 0.3)' // Subtle grey shadow for white text
                 : '1px 1px 2px rgba(255, 255, 255, 0.5)', // Subtle white shadow for grey text
@@ -415,6 +416,20 @@ const CustomAppBar = ({ backgroundColor, textColor, hoverColor }) => {
           >
             Sign Up
           </Button>
+          <IconButton
+            color="inherit"
+            sx={{
+              color: textColor,
+              '&:hover': { color: hoverColor },
+              
+              boxShadow: textColor === 'white'
+                ? '0px 1px 2px rgba(0, 0, 0, 0.3)' // Subtle grey shadow for white icons
+                : '0px 2px 4px rgba(255, 255, 255, 0.5)', // Subtle white shadow for grey icons
+            }}
+            onClick={toggleTheme}
+          >
+            {isDarkMode ? <DarkMode /> : <LightMode />}
+          </IconButton>
         </SignedOut>
         <SignedIn>
           <UserButton sx={{ color: textColor }} />
