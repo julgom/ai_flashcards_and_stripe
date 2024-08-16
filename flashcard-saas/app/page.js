@@ -412,7 +412,7 @@ export default function Home() {
           flexDirection: 'column',
           justifyContent: 'space-between',
           textAlign: 'center',
-          boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
+          boxShadow: isDarkMode ? '0 16px 32px rgba(0, 0, 0, 0.4)':'0 12px 24px rgba(0, 0, 0, 0.3)',
           //height: '230px',
           height: '100%',
 
@@ -443,7 +443,7 @@ export default function Home() {
           flexDirection: 'column',
           justifyContent: 'space-between',
           textAlign: 'center',
-          boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
+          boxShadow: isDarkMode ? '0 16px 32px rgba(0, 0, 0, 0.4)':'0 12px 24px rgba(0, 0, 0, 0.3)',
           //height: '230px',
           height: '100%',
 
@@ -476,7 +476,7 @@ export default function Home() {
           flexDirection: 'column',
           justifyContent: 'space-between',
           textAlign: 'center',
-          boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
+          boxShadow: isDarkMode ? '0 16px 32px rgba(0, 0, 0, 0.4)':'0 12px 24px rgba(0, 0, 0, 0.3)',
           //height: '230px',
           height: '100%',
 
