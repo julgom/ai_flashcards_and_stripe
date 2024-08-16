@@ -298,27 +298,28 @@ export default function Home() {
   const handleSubmit = async () => {
     const checkoutSession = await fetch('/api/checkout_session', {
       method: 'POST',
-      /*headers: {
+      headers: {
         origin: 'https://localhost:3000',
-      },*/
-    });
+      },
+    })
 
-    const checkoutSessionJson = await checkoutSession.json();
+    const checkoutSessionJson = await checkoutSession.json()
 
     if (checkoutSession.statusCode === 500) {
-      console.error(checkoutSession.message);
-      return;
+      console.error(checkoutSession.message)
+      return
     }
 
-    const stripe = await getStripe();
-    const { error } = await stripe.redirectToCheckout({
+    const stripe = await getStripe()
+    const {error} = await stripe.redirectToCheckout({
       sessionId: checkoutSessionJson.id,
-    });
+    })
 
     if (error) {
-      console.warn(error.message);
+      console.warn(error.message)
     }
-  };
+  }
+  
   const handleStarted = async () => {
     if (isSignedIn) {
       // Redirect to the generate page if the user is signed in
@@ -340,7 +341,6 @@ export default function Home() {
         hoverColor="#f5f5f5"
       />
 
-      {/* First Page: Landing Page */}
       <Container
         maxWidth="100vw"
         sx={{
@@ -359,7 +359,7 @@ export default function Home() {
        
        <Box sx={{textAlign: 'center'}}> 
        <Typography  sx={{ pt:"90px",color: '#333333', mb: 7, textAlign: 'center', textShadow: '2px 2px 4px rgba(128, 128, 128, 0.7)',  fontSize: '4.25rem', fontWeight: '300', lineHeight: 1.167, letterSpacing: '0' }}>
-            FlashAIde
+       {isSignedIn ? `Hi ${user.firstName}! Welcome to FlashAIde.` : 'FlashAIde'}
         </Typography>
           
           <Typography variant="h5" sx={{ color: '#666666', mb: 4 }}>
@@ -390,7 +390,7 @@ export default function Home() {
 
        </Box>
 
-        {/* Features Section */}
+        
         <Box sx={{ my: 6 }}>
   <Grid container spacing={4} justifyContent="center">
     <Grid item xs={12} md={4}>
@@ -499,7 +499,7 @@ export default function Home() {
       </Typography>
 
       <Grid container spacing={4} justifyContent="center" sx={{ mt: 7 }}> 
-        {/* Basic Plan */}
+       
         <Grid item xs={12} sm={6} md={4}>
           <Box
             sx={{
@@ -553,7 +553,7 @@ export default function Home() {
         </Box>
       </Box>
             <Button
-                        onClick={handleSubmit}
+                        //onClick={handleSubmit}
                         variant="contained"
                         color="primary"
                         sx={{
@@ -574,7 +574,7 @@ export default function Home() {
             </Box>
         </Grid>
 
-        {/* Pro Plan */}
+        
         <Grid item xs={12} sm={6} md={4}>
           <Box
             sx={{
