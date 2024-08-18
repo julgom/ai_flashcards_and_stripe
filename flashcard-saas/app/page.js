@@ -367,11 +367,26 @@ export default function Home() {
         
        
        <Box sx={{textAlign: 'center'}}> 
-       <Typography  sx={{ pt:"90px",color: isDarkMode ? '#EAE5F2' : '#333333', mb: 7, textAlign: 'center', textShadow: '2px 2px 4px rgba(128, 128, 128, 0.7)',  fontSize: '4.25rem', fontWeight: '300', lineHeight: 1.167, letterSpacing: '0' }}>
+       <Typography  
+          sx={{ 
+            pt:"90px",
+            color: isDarkMode ? '#EAE5F2' : '#333333', 
+            mb: 7, 
+            textAlign: 'center', 
+            textShadow: '2px 2px 4px rgba(128, 128, 128, 0.7)',  
+            fontSize: '4.25rem', 
+            fontWeight: '300', 
+            lineHeight: 1.167, 
+            letterSpacing: '0'
+            }}
+          >
        {isSignedIn ? `Hi ${user.firstName}! Welcome to FlashAIde.` : 'FlashAIde'}
         </Typography>
           
-          <Typography variant="h5" sx={{ color: isDarkMode ? '#EAE5F2' : '#666666', mb: 4 }}>
+          <Typography 
+             variant="h5" 
+             sx={{ 
+              color: isDarkMode ? '#EAE5F2' : '#666666', mb: 4 }}>
           Transform your notes into flashcards in no time with FlashAIde! This advanced AI flashcard generator is your ultimate tool for turning study sessions into efficient, stress-free experiences. With FlashAIde, you will memorize information faster, grasp concepts more thoroughly, and approach your exams with confidence.
           </Typography>
           <Button

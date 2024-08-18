@@ -860,7 +860,7 @@ export default function Generate() {
 
         if (docSnap.exists()) {
             const collections = docSnap.data().flashcards || [];
-            if (collections.find((f) => f.name === name)) {
+            if (collections.find((f) => f.name.toLowerCase() === name.toLowerCase())) {
                 alert('Flashcard collection with the same name already exists.');
                 return;
             } else {

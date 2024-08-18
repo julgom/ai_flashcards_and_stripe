@@ -403,7 +403,7 @@ export default function Flashcards() {
                     alert('Flashcard collection with the same name already exists.');
                     return;
                 } 
-                const flashcardSet = flashcards.find((f) => f.name === currentName);
+                const flashcardSet = flashcards.find((f) => f.name.toLowerCase() === currentName.toLowerCase());
 
                 if (flashcardSet) {
                     // Copy flashcards to the new collection
@@ -418,7 +418,7 @@ export default function Flashcards() {
 
                     // Update the flashcard collection name in the user's document
                     const updatedFlashcards = flashcards.map((f) => {
-                        if (f.name === currentName) {
+                        if (f.name.toLowerCase() === currentName.toLowerCase()) {
                             return { name: newName };
                         }
                         return f;
@@ -646,7 +646,7 @@ export default function Flashcards() {
                          label="Collection Name"
                          type="text"
                          fullWidth
-                         value={currentName}
+                         //value={currentName}
                          onChange={(e) => setNewName(e.target.value)}
                          variant="outlined"
                          sx={{
