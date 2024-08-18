@@ -779,10 +779,15 @@ import {
 } from '@mui/material';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import { doc, collection, setDoc, getDoc, writeBatch } from 'firebase/firestore';
-import AppBarComponent from '../AppBar';
 import CustomAppBar from '../AppBar';
 import { useTheme } from '../ThemeContext'; // Import the useTheme hook
-//import { ThemeProvider } from '../ThemeContext';
+
+
+// Import FileUpload component.
+import FileUpload from '../components/FileUpload';
+
+import { FilePond } from 'react-filepond';
+import 'filepond/dist/filepond.min.css';
 
 
 export default function Generate() {
@@ -798,6 +803,14 @@ export default function Generate() {
     const router = useRouter();
     const { isDarkMode } = useTheme();
    
+
+    // Helper function to handle PDF-generated flashcards.
+    const handleFlashcardsGenerated = (generatedFlashcards) => {
+        setFlashcards([]);
+        setLoading(false); // Stop loading when flashcards are generated
+        setFlashcards(generatedFlashcards);
+        
+    };
 
     const handleSubmit = async () => {
         setLoading(true); // Set loading to true when submit is clicked
@@ -816,7 +829,7 @@ export default function Generate() {
                 });
         }else if (mode === 'document' && file) {
             
-            const text = await pdfToText(file);
+            /*const text = await pdfToText(file);
             //console.log(file)
             fetch('api/generate', {
                 method: 'POST',
@@ -828,7 +841,7 @@ export default function Generate() {
                     setFile(null); 
                     setLoading(false); // Set loading to false after data is fetched
                 });   
-            
+            */
         }
     
     }
@@ -886,9 +899,10 @@ export default function Generate() {
         setMode(newMode);
     };
 
-    const handleFileChange = (event) => {
+    /*const handleFileChange = (event) => {
         setFile(event.target.files[0]);
-    };
+    };*/
+
 
     return (
         <>
@@ -990,6 +1004,7 @@ export default function Generate() {
                     }}
                 >
                     {mode === 'text' ? (
+                        <>
                         <TextField
                             value={text}
                             onChange={(e) => setText(e.target.value)}
@@ -1028,42 +1043,7 @@ export default function Generate() {
 
                             }}
                         />
-                    ) : (
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                border: '2px dashed #ffb6c1', // Pastel Pink border
-                                borderRadius: '10px',
-                                p: 2,
-                                height: '217px', // Increased height
-                                mb: 2,
-        
-                            }}
-                        >
-                            <Input
-                                type="file"
-                                
-                                accept = '.pdf' 
-                                //inputProps={{ accept: 'application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/rtf' }}
-                                onChange={handleFileChange}
-                                sx={{ display: 'none' }}
-                                id="file-upload"
-                            />
-                            <label htmlFor="file-upload">
-                                <IconButton component="span" color="primary">
-                                    <InsertDriveFileIcon fontSize="large" sx={{ color: '#ffb6c1' }} />
-                                </IconButton>
-                            </label>
-                            {file && (
-                                <Typography variant="body2" sx={{ ml: 2, color: '#333' }}>
-                                    {file.name}
-                                </Typography>
-                            )}
-                        </Box>
-                    )}
-                    <Button
+                        <Button
                         variant="contained"
                         color="primary"
                         onClick={handleSubmit}
@@ -1085,6 +1065,26 @@ export default function Generate() {
                             'Submit'
                         )}
                     </Button>
+                    </>
+                    ) : (
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                border: '2px dashed #ffb6c1', // Pastel Pink border
+                                borderRadius: '10px',
+                                p: 2,
+                                height: '270px', // Increased height
+                                mb: 2,
+        
+                            }}
+                        >
+                      <FileUpload onFlashcardsGenerated={handleFlashcardsGenerated} setFlashcards={setFlashcards}  />
+                      </Box>
+                        
+                    )}
+                    
                 </Paper>
             </Box>
 
@@ -1320,6 +1320,7 @@ export default function Generate() {
                     </Button>
                 </DialogActions>
             </Dialog>
+            
         </Container>
         
         </>
