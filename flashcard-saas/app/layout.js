@@ -8,6 +8,7 @@ import GeneratePage from './generate/page'; // Import other pages/components if 
 import FlashcardsPage from './flashcards/page';
 import HomePage from './page.js';
 const inter = Inter({ subsets: ["latin"] });
+import Script from "next/script";
 
 export const metadata = {
   title: "Create Next App",
@@ -19,6 +20,22 @@ export default function RootLayout({ children }) {
     <ThemeProvider>
     <ClerkProvider>
       <html lang="en">
+        <head>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GOOGLE_ANALYTICS_MEASUREMENT_ID}`}
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive" >
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+
+              gtag('config', '${process.env.GOOGLE_ANALYTICS_MEASUREMENT_ID}');
+            `}
+          </Script>
+        </head>
         <body className={inter.className}>{children}</body>
       </html>
     </ClerkProvider>
