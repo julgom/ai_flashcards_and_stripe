@@ -547,32 +547,21 @@ export default function Home() {
           Basic
         </Typography>
         <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold', color: isDarkMode ? '#EAE5F2' : '#333', fontSize: '1.5rem' }}>
-          $5 / month
+          $0 / month
         </Typography>
         <Typography variant="h6" gutterBottom sx={{ color:  isDarkMode ? '#EAE5F2' : '#444', mb: 2, fontSize: '1.2rem' }}>
-          Access to basic flashcard features and limited storage.
+        Get started with our essential flashcard features.
         </Typography>
         <Box sx={{ textAlign: 'center', mb: 3 }}>
           <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#222', mb: 2, fontSize: '1rem', fontWeight: 'bold' }}>
             <strong>Features:</strong>
           </Typography>
           <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 1.5, fontSize: '1rem' }}>
-            - Unlimited non-AI Flashcards
+            - Limited flashcard generation
           </Typography>
-          <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 1.5, fontSize: '1rem' }}>
-            - 5 pages per document
-          </Typography>
-          <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 1.5, fontSize: '1rem' }}>
-            - 20 exam mode answers
-          </Typography>
-          <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 1.5, fontSize: '1rem' }}>
-            - 20,000 characters per text upload
-          </Typography>
-          <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 1.5, fontSize: '1rem' }}>
-            - No exporting
-          </Typography>
+          
           <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', fontSize: '1rem' }}>
-            - Limited new features
+            - Text upload only
           </Typography>
         </Box>
       </Box>
@@ -626,29 +615,18 @@ export default function Home() {
           $10 / month
         </Typography>
         <Typography variant="h6" gutterBottom sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 2, fontSize: '1.2rem' }}>
-          Unlimited flashcards and storage with priority support.
+        Unlock unlimited flashcards and advanced features.
         </Typography>
         <Box sx={{ textAlign: 'center', mb: 3 }}>
           <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#222', mb: 2, fontSize: '1rem', fontWeight: 'bold' }}>
             <strong>Features:</strong>
           </Typography>
           <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 1.5, fontSize: '1rem' }}>
-            - Unlimited AI Flashcards
+            - Unlimited flashcard generation
           </Typography>
-          <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 1.5, fontSize: '1rem' }}>
-            - 100 pages per document
-          </Typography>
-          <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 1.5, fontSize: '1rem' }}>
-            - Unlimited exam mode answers
-          </Typography>
-          <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 1.5, fontSize: '1rem' }}>
-            - 60,000 characters per text upload
-          </Typography>
-          <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', mb: 1.5, fontSize: '1rem' }}>
-            - Export to Anki, PDF, and more
-          </Typography>
+          
           <Typography variant="body1" sx={{ color: isDarkMode ? '#EAE5F2' : '#444', fontSize: '1rem' }}>
-            - New features soon
+            - File and text upload
           </Typography>
         </Box>
       </Box>
